@@ -19,28 +19,46 @@ package org.gradle.tooling.events.problems;
 import org.gradle.api.Incubating;
 import org.gradle.api.NonNullApi;
 
-import java.util.Map;
+import javax.annotation.Nullable;
 
 /**
- * Additional data attached to the problem.
- * <p>
- * This type is effectively a sealed interface with the following subtypes:
- * <ul>
- *     <li>{@link org.gradle.tooling.events.problems.TypeValidationData}</li>
- * </ul>
- * <p>
- * The information returned by {@code #getAsMap} is considered dynamic information and subject to change between Gradle versions.
+ * Additional data describing type validation problems.
  *
- * @since 8.6
+ * @since 8.9
  */
 @Incubating
 @NonNullApi
-public interface AdditionalData {
+public interface TypeValidationData extends AdditionalData {
 
     /**
-     * Returns additional data as a map.
+     * The ID of the plugin that caused the problem.
      *
-     * @since 8.6
+     * @since 8.9
      */
-    Map<String, Object> getAsMap();
+    @Nullable
+    String getPluginId();
+
+    /**
+     * The name of the property that caused the problem.
+     *
+     * @since 8.9
+     */
+    @Nullable
+    String getPropertyName();
+
+    /**
+     * The name of the parent property that caused the problem.
+     *
+     * @since 8.9
+     */
+    @Nullable
+    String getParentPropertyName();
+
+    /**
+     * The type name that caused the problem.
+     *
+     * @since 8.9
+     */
+    @Nullable
+    String getTypeName();
 }

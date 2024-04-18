@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package org.gradle.internal.reflect.validation;
+package org.gradle.tooling.internal.protocol.problem;
 
-import org.gradle.api.NonNullApi;
-import org.gradle.api.problems.internal.InternalProblemSpec;
-
-import javax.annotation.Nullable;
-
-@NonNullApi
-public interface TypeAwareProblemBuilder extends InternalProblemSpec {
-    TypeAwareProblemBuilder withAnnotationType(@Nullable Class<?> classWithAnnotationAttached);
-
-    TypeAwareProblemBuilder forProperty(String propertyName);
-
-    TypeAwareProblemBuilder parentProperty(@Nullable String parentProperty);
+/**
+ * @since 8.9
+ */
+public interface InternalTypeValidationData extends InternalAdditionalData {
+    String getPluginId();
+    String getPropertyName();
+    String getParentPropertyName();
+    String getTypeName();
 }

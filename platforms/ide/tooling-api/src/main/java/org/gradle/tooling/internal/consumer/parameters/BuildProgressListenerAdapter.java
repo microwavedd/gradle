@@ -78,7 +78,7 @@ import org.gradle.tooling.events.problems.ProblemGroup;
 import org.gradle.tooling.events.problems.ProblemId;
 import org.gradle.tooling.events.problems.Severity;
 import org.gradle.tooling.events.problems.Solution;
-import org.gradle.tooling.events.problems.internal.DefaultAdditionalData;
+import org.gradle.tooling.events.problems.internal.GeneralData;
 import org.gradle.tooling.events.problems.internal.DefaultContextualLabel;
 import org.gradle.tooling.events.problems.internal.DefaultDetails;
 import org.gradle.tooling.events.problems.internal.DefaultDocumentationLink;
@@ -97,6 +97,7 @@ import org.gradle.tooling.events.problems.internal.DefaultSeverity;
 import org.gradle.tooling.events.problems.internal.DefaultSingleProblemEvent;
 import org.gradle.tooling.events.problems.internal.DefaultSolution;
 import org.gradle.tooling.events.problems.internal.DefaultTaskPathLocation;
+import org.gradle.tooling.events.problems.internal.DefaultTypeValidationData;
 import org.gradle.tooling.events.task.TaskFinishEvent;
 import org.gradle.tooling.events.task.TaskOperationDescriptor;
 import org.gradle.tooling.events.task.TaskOperationResult;
@@ -228,6 +229,7 @@ import org.gradle.tooling.internal.protocol.problem.InternalProblemDetailsVersio
 import org.gradle.tooling.internal.protocol.problem.InternalSeverity;
 import org.gradle.tooling.internal.protocol.problem.InternalSolution;
 import org.gradle.tooling.internal.protocol.problem.InternalTaskPathLocation;
+import org.gradle.tooling.internal.protocol.problem.InternalTypeValidationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -884,7 +886,17 @@ public class BuildProgressListenerAdapter implements InternalBuildProgressListen
     }
 
     private static AdditionalData toAdditionalData(InternalAdditionalData additionalData) {
-        return new DefaultAdditionalData(additionalData.getAsMap());
+        if (additionalData instanceof InternalTypeValidationData) {
+            InternalTypeValidationData typeValidationData = (InternalTypeValidationData) additionalData;
+            return new DefaultTypeValidationData(
+                typeValidationData.getPluginId(),
+                typeValidationData.getPropertyName(),
+                typeValidationData.getParentPropertyName(),
+                typeValidationData.getTypeName()
+            );
+        } else {
+            return new GeneralData(additionalData.getAsMap());
+        }
     }
 
     private static ContextualLabel toContextualLabel(@Nullable InternalContextualLabel contextualLabel) {

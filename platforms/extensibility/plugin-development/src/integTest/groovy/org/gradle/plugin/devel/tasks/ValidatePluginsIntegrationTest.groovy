@@ -146,7 +146,7 @@ class AbstractValidatePluginsIntegrationTest extends AbstractPluginValidationInt
 
 }
 
-class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegrationTest {
+    class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegrationTest {
 
     def "supports recursive types"() {
         groovyTaskSource << """
@@ -183,7 +183,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'tree',
                 'typeName' : 'MyTask',
                 'propertyName' : 'nonAnnotated',
@@ -235,7 +235,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Remove the property',
                 'Use a different annotation, e.g one of @Console, @Destroys, @Inject, @Input, @InputDirectory, @InputFile, @InputFiles, @Internal, @LocalState, @Nested, @OptionValues, @OutputDirectories, @OutputDirectory, @OutputFile, @OutputFiles, @ReplacedBy or @ServiceReference',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'options',
                 'typeName' : 'MyTask',
                 'propertyName' : 'nestedThing',
@@ -249,7 +249,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Remove the property',
                 'Use a different annotation, e.g one of @Console, @Destroys, @Inject, @Input, @InputDirectory, @InputFile, @InputFiles, @Internal, @LocalState, @Nested, @OptionValues, @OutputDirectories, @OutputDirectory, @OutputFile, @OutputFiles, @ReplacedBy or @ServiceReference',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'thing',
             ]
@@ -309,7 +309,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'dirProp\' is annotated with @InputDirectory but missing a normalization strategy'
             details == 'If you don\'t declare the normalization, outputs can\'t be re-used between machines or locations on the same machine, therefore caching efficiency drops significantly'
             solutions == [ 'Declare the normalization strategy by annotating the property with either @PathSensitive, @Classpath or @CompileClasspath' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'dirProp',
             ]
@@ -319,7 +319,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'fileProp\' is annotated with @InputFile but missing a normalization strategy'
             details == 'If you don\'t declare the normalization, outputs can\'t be re-used between machines or locations on the same machine, therefore caching efficiency drops significantly'
             solutions == [ 'Declare the normalization strategy by annotating the property with either @PathSensitive, @Classpath or @CompileClasspath' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'fileProp',
             ]
@@ -329,7 +329,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'filesProp\' is annotated with @InputFiles but missing a normalization strategy'
             details == 'If you don\'t declare the normalization, outputs can\'t be re-used between machines or locations on the same machine, therefore caching efficiency drops significantly'
             solutions == [ 'Declare the normalization strategy by annotating the property with either @PathSensitive, @Classpath or @CompileClasspath' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'filesProp',
             ]
@@ -445,7 +445,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Remove the property',
                 'Use a different annotation, e.g one of @Inject, @InputArtifact or @InputArtifactDependencies',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformAction',
                 'propertyName' : 'inputFile',
             ]
@@ -458,7 +458,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformAction',
                 'propertyName' : 'badTime',
             ]
@@ -471,7 +471,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformAction',
                 'propertyName' : 'oldThing',
             ]
@@ -550,7 +550,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Remove the property',
                 'Use a different annotation, e.g one of @Console, @Inject, @Input, @InputDirectory, @InputFile, @InputFiles, @Internal, @Nested, @ReplacedBy or @ServiceReference',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformParameters',
                 'propertyName' : 'inputFile',
             ]
@@ -560,7 +560,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTransformParameters\' property \'incrementalNonFileInput\' is annotated with @Incremental but that is not allowed for \'Input\' properties'
             details == 'This modifier is used in conjunction with a property of type \'Input\' but this doesn\'t have semantics'
             solutions == [ 'Remove the \'@Incremental\' annotation' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformParameters',
                 'propertyName' : 'incrementalNonFileInput',
             ]
@@ -573,7 +573,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformParameters',
                 'propertyName' : 'badTime',
             ]
@@ -586,7 +586,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTransformParameters',
                 'propertyName' : 'oldThing',
             ]
@@ -656,7 +656,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'PluginTask',
                 'propertyName' : 'badProperty',
             ]
@@ -714,7 +714,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                  'Add @CacheableTask',
                  'Add @UntrackedTask(because = ...)',
              ]
-             additionalData == [ 'typeName' : 'MyTask' ]
+             additionalData.asMap == [ 'typeName' : 'MyTask' ]
          }
          verifyAll(receivedProblem(1)) {
              fqid == 'validation:type-validation:not-cacheable-without-reason'
@@ -724,7 +724,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                  'Add @DisableCachingByDefault(because = ...)',
                  'Add @CacheableTransform',
              ]
-             additionalData == [ 'typeName' : 'MyTransformAction' ]
+             additionalData.asMap == [ 'typeName' : 'MyTransformAction' ]
          }
     }
 
@@ -814,7 +814,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'direct',
             ]
@@ -827,7 +827,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'listPropertyInput',
             ]
@@ -840,7 +840,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'mapPropertyInput',
             ]
@@ -853,7 +853,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'nestedBean',
                 'typeName' : 'MyTask',
                 'propertyName' : 'nestedInput',
@@ -867,7 +867,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'propertyInput',
             ]
@@ -880,7 +880,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'providerInput',
             ]
@@ -893,7 +893,7 @@ class ValidatePluginsPart1IntegrationTest extends AbstractValidatePluginsIntegra
                 'Extract artifact metadata and annotate with @Input',
                 'Extract artifact files and annotate with @InputFiles',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'setPropertyInput',
             ]
@@ -975,7 +975,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'direct\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'direct',
             ]
@@ -985,7 +985,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'listPropertyInput\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'listPropertyInput',
             ]
@@ -995,7 +995,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'mapPropertyInput\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'mapPropertyInput',
             ]
@@ -1005,7 +1005,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'nestedBean.nestedInput\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'nestedBean',
                 'typeName' : 'MyTask',
                 'propertyName' : 'nestedInput',
@@ -1016,7 +1016,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'propertyInput\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'propertyInput',
             ]
@@ -1026,7 +1026,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'providerInput\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'providerInput',
             ]
@@ -1036,7 +1036,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'setPropertyInput\' has @Input annotation used on type \'java.net.URL\' or a property of this type'
             details == 'Type \'java.net.URL\' is not supported on properties annotated with @Input because Java Serialization can be inconsistent for this type'
             solutions == [ 'Use type \'java.net.URI\' instead' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'setPropertyInput',
             ]
@@ -1126,7 +1126,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Annotate with @InputFiles for collections of files',
                 'If you want to track the path, return File.absolutePath as a String and keep @Input',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'file',
             ]
@@ -1140,7 +1140,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Annotate with @InputFiles for collections of files',
                 'If you want to track the path, return File.absolutePath as a String and keep @Input',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'fileCollection',
             ]
@@ -1154,7 +1154,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Annotate with @InputFiles for collections of files',
                 'If you want to track the path, return File.absolutePath as a String and keep @Input',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'filePath',
             ]
@@ -1168,7 +1168,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Annotate with @InputFiles for collections of files',
                 'If you want to track the path, return File.absolutePath as a String and keep @Input',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'fileTree',
             ]
@@ -1178,7 +1178,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'inputDirectory\' is annotated with @InputDirectory but missing a normalization strategy'
             details == 'If you don\'t declare the normalization, outputs can\'t be re-used between machines or locations on the same machine, therefore caching efficiency drops significantly'
             solutions == [ 'Declare the normalization strategy by annotating the property with either @PathSensitive, @Classpath or @CompileClasspath' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'inputDirectory',
             ]
@@ -1188,7 +1188,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'inputFile\' is annotated with @InputFile but missing a normalization strategy'
             details == 'If you don\'t declare the normalization, outputs can\'t be re-used between machines or locations on the same machine, therefore caching efficiency drops significantly'
             solutions == [ 'Declare the normalization strategy by annotating the property with either @PathSensitive, @Classpath or @CompileClasspath' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'inputFile',
             ]
@@ -1198,7 +1198,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == 'Type \'MyTask\' property \'inputFiles\' is annotated with @InputFiles but missing a normalization strategy'
             details == 'If you don\'t declare the normalization, outputs can\'t be re-used between machines or locations on the same machine, therefore caching efficiency drops significantly'
             solutions == [ 'Declare the normalization strategy by annotating the property with either @PathSensitive, @Classpath or @CompileClasspath' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'inputFiles',
             ]
@@ -1328,7 +1328,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'doubleIterableOptions.*.*',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1342,7 +1342,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'iterableMappedOptions.*.<key>.*',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1356,7 +1356,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'iterableOptions.*',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1370,7 +1370,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'mappedOptions.<key>',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1384,7 +1384,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'namedIterable.<name>',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1398,7 +1398,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'options',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1412,7 +1412,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'optionsList.*',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1426,7 +1426,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Add an input or output annotation',
                 'Mark it as @Internal',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'parentPropertyName' : 'providedOptions',
                 'typeName' : 'MyTask',
                 'propertyName' : 'notAnnotated',
@@ -1533,7 +1533,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
             contextualLabel == "Type 'MyTask' property 'mapWithUnsupportedKey' where key of nested map is of type 'java.lang.Boolean'"
             details == 'Key of nested map must be one of the following types: \'Enum\', \'Integer\', \'String\''
             solutions == [ 'Change type of key to one of the following types: \'Enum\', \'Integer\', \'String\'' ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : 'mapWithUnsupportedKey',
             ]
@@ -1577,7 +1577,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Use a different input annotation if type is not a bean',
                 'Use a different package that doesn\'t conflict with standard Java or Kotlin types for custom types',
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : "my$typeName",
             ]
@@ -1675,7 +1675,7 @@ class ValidatePluginsPart2IntegrationTest extends AbstractValidatePluginsIntegra
                 'Use a different input annotation if type is not a bean',
                 'Use a different package that doesn\'t conflict with standard Java or Kotlin types for custom types'
             ]
-            additionalData == [
+            additionalData.asMap == [
                 'typeName' : 'MyTask',
                 'propertyName' : "my$typeName"
             ]
