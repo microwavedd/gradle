@@ -24,7 +24,7 @@ import org.gradle.declarative.dsl.schema.DataConstructor
 import org.gradle.declarative.dsl.schema.DataParameter
 import org.gradle.declarative.dsl.schema.DataTopLevelFunction
 import org.gradle.declarative.dsl.schema.SchemaMemberFunction
-import org.gradle.internal.declarativedsl.analysis.DataMemberFunction
+import org.gradle.internal.declarativedsl.analysis.DefaultDataMemberFunction
 import org.gradle.internal.declarativedsl.analysis.DefaultDataParameter
 import org.gradle.internal.declarativedsl.analysis.DefaultFunctionSemantics
 import org.gradle.internal.declarativedsl.analysis.ParameterSemanticsInternal
@@ -56,10 +56,10 @@ class DependencyConfigurationsComponent(
     val configurations = DependencyConfigurations(project.configurations.names.toList())
 
     private
-    val gavDependencyParam = DefaultDataParameter("dependency", String::class.toDataTypeRef(), false, ParameterSemanticsInternal.Unknown)
+    val gavDependencyParam = DefaultDataParameter("dependency", String::class.toDataTypeRef(), false, ParameterSemanticsInternal.DefaultUnknown)
 
     private
-    val projectDependencyParam = DefaultDataParameter("dependency", ProjectDependency::class.toDataTypeRef(), false, ParameterSemanticsInternal.Unknown)
+    val projectDependencyParam = DefaultDataParameter("dependency", ProjectDependency::class.toDataTypeRef(), false, ParameterSemanticsInternal.DefaultUnknown)
 
     private
     val dependencyCollectorFunctionExtractorAndRuntimeResolver = DependencyCollectorFunctionExtractorAndRuntimeResolver(gavDependencyParam, projectDependencyParam)
@@ -87,7 +87,7 @@ class DependencyFunctionsExtractor(private val configurations: DependencyConfigu
     override fun memberFunctions(kClass: KClass<*>, preIndex: DataSchemaBuilder.PreIndex): Iterable<SchemaMemberFunction> =
         if (kClass == RestrictedDependenciesHandler::class) {
             configurations.configurationNames.map { configurationName ->
-                DataMemberFunction(
+                DefaultDataMemberFunction(
                     kClass.toDataTypeRef(),
                     configurationName,
                     listOf(projectDependencyParam),
