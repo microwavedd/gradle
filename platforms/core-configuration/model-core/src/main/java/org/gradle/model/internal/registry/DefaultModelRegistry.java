@@ -608,6 +608,7 @@ public class DefaultModelRegistry implements ModelRegistryInternal {
          * @return true if this goal will be ready to apply once the returned dependencies have been achieved. False if additional dependencies for this goal may be discovered during the execution of
          * the known dependencies.
          */
+        // used in subclasses
         public boolean calculateDependencies(GoalGraph graph, Collection<ModelGoal> dependencies) {
             return true;
         }
@@ -618,6 +619,7 @@ public class DefaultModelRegistry implements ModelRegistryInternal {
         void apply() {
         }
 
+        // used in subclasses
         void attachToCycle(List<String> displayValue) {
         }
 
@@ -1071,7 +1073,7 @@ public class DefaultModelRegistry implements ModelRegistryInternal {
                 return false;
             }
             for (ModelNodeInternal child : node.getLinks()) {
-                if (child.isAtLeast(Discovered) && (child.getPromise().canBeViewedAs(typeToBind))) {
+                if (child.isAtLeast(Discovered) && child.getPromise().canBeViewedAs(typeToBind)) {
                     return true;
                 }
             }

@@ -1,5 +1,6 @@
 plugins {
     id("gradlebuild.distribution.api-java")
+    id("gradlebuild.jmh")
 }
 
 description = "Logging infrastructure"
@@ -22,9 +23,7 @@ errorprone {
         "StringSplitter", // 4 occurrences
         "ThreadLocalUsage", // 1 occurrences
         "TypeParameterUnusedInFormals", // 1 occurrences
-        "UnnecessaryParentheses", // 3 occurrences
         "UnusedMethod", // 3 occurrences
-        "UnusedVariable", // 1 occurrences
     )
 }
 

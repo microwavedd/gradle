@@ -24,6 +24,7 @@ import org.gradle.internal.declarativedsl.evaluator.DeclarativeSchemaRegistry
 import org.gradle.internal.declarativedsl.evaluator.StoringInterpretationSchemaBuilder
 import org.gradle.internal.service.ServiceRegistration
 import org.gradle.internal.service.scopes.AbstractPluginServiceRegistry
+import org.gradle.plugin.software.internal.SoftwareTypeRegistry
 
 
 class DeclarativeDslServiceRegistry : AbstractPluginServiceRegistry() {
@@ -40,8 +41,8 @@ object BuildServices {
     val schemaRegistry = DefaultDeclarativeSchemaRegistry()
 
     @Suppress("unused")
-    fun createDeclarativeKotlinScriptEvaluator(): DeclarativeKotlinScriptEvaluator {
-        val schemaBuilder = StoringInterpretationSchemaBuilder(DefaultInterpretationSchemaBuilder(), schemaRegistry)
+    fun createDeclarativeKotlinScriptEvaluator(softwareTypeRegistry: SoftwareTypeRegistry): DeclarativeKotlinScriptEvaluator {
+        val schemaBuilder = StoringInterpretationSchemaBuilder(DefaultInterpretationSchemaBuilder(softwareTypeRegistry), schemaRegistry)
         return DefaultDeclarativeKotlinScriptEvaluator(schemaBuilder)
     }
 

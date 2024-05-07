@@ -4,15 +4,14 @@ plugins {
 
 errorprone {
     disabledChecks.addAll(
-        "UnusedMethod", // 7 occurrences
         "UnusedVariable", // 1 occurrences
     )
 }
 
 dependencies {
-    api(project(":base-services"))
     api(project(":core"))
 
+    implementation(project(":base-services"))
     implementation(project(":core-api"))
     implementation(project(":logging"))
     implementation(project(":model-core"))
@@ -20,7 +19,6 @@ dependencies {
     implementation(project(":plugins-groovy"))
     implementation(project(":plugins-java-base"))
     implementation(project(":plugins-java-library"))
-    implementation(project(":publish"))
 
     integTestImplementation(testFixtures(project(":enterprise-operations")))
     integTestImplementation(testFixtures(project(":language-java")))

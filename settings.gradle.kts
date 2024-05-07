@@ -26,8 +26,8 @@ pluginManagement {
 }
 
 plugins {
-    id("com.gradle.develocity").version("3.17.1") // Sync with `build-logic-commons/build-platform/build.gradle.kts`
-    id("io.github.gradle.gradle-enterprise-conventions-plugin").version("0.9.1")
+    id("com.gradle.develocity").version("3.17.2") // Sync with `build-logic-commons/build-platform/build.gradle.kts`
+    id("io.github.gradle.gradle-enterprise-conventions-plugin").version("0.10.0")
     id("org.gradle.toolchains.foojay-resolver-convention") version ("0.8.0")
 //    id("net.ltgt.errorprone").version("3.1.0")
 }
@@ -128,6 +128,7 @@ val core = platform("core") {
     module("core-execution") {
         subproject("build-cache")
         subproject("build-cache-base")
+        subproject("build-cache-example-client")
         subproject("build-cache-local")
         subproject("build-cache-http")
         subproject("build-cache-packaging")
@@ -299,7 +300,7 @@ gradle.settingsEvaluated {
 gradle.rootProject {
     tasks.register("architectureDoc", GeneratorTask::class.java) {
         description = "Generates the architecture documentation"
-        outputFile = layout.projectDirectory.file("architecture/README.md")
+        outputFile = layout.projectDirectory.file("architecture/platforms.md")
         elements = provider { architectureElements.map { it.build() } }
     }
 }
@@ -318,16 +319,20 @@ abstract class GeneratorTask : DefaultTask() {
     @TaskAction
     fun generate() {
         val markdownFile = outputFile.asFile.get()
-        val content = markdownFile.readText().lines()
-        val markerPos = content.indexOfFirst { it.contains(markerComment) }
-        if (markerPos < 0) {
-            throw IllegalArgumentException("Could not locate the generated diagram in $markdownFile")
+        val head = if (markdownFile.exists()) {
+            val content = markdownFile.readText().lines()
+            val markerPos = content.indexOfFirst { it.contains(markerComment) }
+            if (markerPos < 0) {
+                throw IllegalArgumentException("Could not locate the generated diagram in $markdownFile")
+            }
+            val endPos = content.subList(markerPos, content.size).indexOfFirst { it.contains(endDiagram) && !it.contains(startDiagram) }
+            if (endPos < 0) {
+                throw IllegalArgumentException("Could not locate the end of the generated diagram in $markdownFile")
+            }
+            content.subList(0, markerPos)
+        } else {
+            emptyList()
         }
-        val endPos = content.subList(markerPos, content.size).indexOfFirst { it.contains(endDiagram) && !it.contains(startDiagram) }
-        if (endPos < 0) {
-            throw IllegalArgumentException("Could not locate the end of the generated diagram in $markdownFile")
-        }
-        val head = content.subList(0, markerPos)
 
         markdownFile.bufferedWriter().use {
             PrintWriter(it).run {
