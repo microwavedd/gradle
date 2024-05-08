@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,25 @@
  * limitations under the License.
  */
 
-package org.gradle.api.internal.credentials;
+package org.gradle.launcher.daemon.server;
 
-import org.gradle.api.internal.TaskInternal;
-import org.gradle.internal.service.scopes.EventScope;
 import org.gradle.internal.service.scopes.Scope;
+import org.gradle.internal.service.scopes.ServiceScope;
+
+import java.io.File;
 
 /**
- * Collects issues to be reported to users.
+ * Carries the location of the log file for the current daemon.
  */
-@EventScope(Scope.Build.class)
-public interface CredentialListener {
-    /**
-     * Signals a safety issue with credentials.
-     *
-     * @param locationSpecificReason a location-specific user-facing summary of the issue
-     * @param task a reference to the task
-     */
-    void onUnsafeCredentials(String locationSpecificReason, TaskInternal task);
+@ServiceScope(Scope.Global.class)
+public class DaemonLogFile {
+    private final File file;
+
+    public DaemonLogFile(File file) {
+        this.file = file;
+    }
+
+    public File getFile() {
+        return file;
+    }
 }

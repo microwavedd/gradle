@@ -147,6 +147,13 @@
     "crossVersionTests": false
   },
   {
+    "name": "build-state",
+    "path": "platforms/core-runtime/build-state",
+    "unitTests": false,
+    "functionalTests": false,
+    "crossVersionTests": false
+  },
+  {
     "name": "cli",
     "path": "platforms/core-runtime/cli",
     "unitTests": true,
@@ -759,13 +766,6 @@
     "name": "plugin-use",
     "path": "platforms/extensibility/plugin-use",
     "unitTests": true,
-    "functionalTests": true,
-    "crossVersionTests": false
-  },
-  {
-    "name": "plugins",
-    "path": "subprojects/plugins",
-    "unitTests": false,
     "functionalTests": true,
     "crossVersionTests": false
   },
